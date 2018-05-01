@@ -61,6 +61,7 @@ $_SESSION['paginaCorrente'] = "Prodotti";
 	if (isset($_SESSION['utenteCorrente'])){
 		if ($_SESSION['tipoUtente'] == 'A'){
 			include 'partials/add_product_card.php';
+			include 'partials/add_category_card.php';
 		}
 	}
 

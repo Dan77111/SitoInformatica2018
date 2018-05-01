@@ -12,8 +12,15 @@
 				<p><?php echo $descrizione ?></p><br>
 				<p><?php echo $prezzo ?>€</p>
 			</div>
-			<button type="submit" id="btnCarrello" name="btnCarrello" style="margin:5px;" class="mdl-button mdl-color--primary mdl-color-text--primary-contrast">Aggiungi al carrello</button>
-			<button type="submit" id="btnListaDesideri" name="btnListaDesideri" style="margin:5px;" class="mdl-button mdl-color--primary mdl-color-text--primary-contrast">Aggiungi alla lista dei desideri</button>
+			<?php if (isset($idUtente)){ ?>
+				<button type="submit" id="btnCarrello" name="btnCarrello" style="margin:5px;" class="mdl-button mdl-color--primary mdl-color-text--primary-contrast">Aggiungi al carrello</button>
+				<button type="submit" id="btnListaDesideri" name="btnListaDesideri" style="margin:5px;" class="mdl-button mdl-color--primary mdl-color-text--primary-contrast">Aggiungi alla lista dei desideri</button>
+				<?php if ($_SESSION['tipoUtente'] == 'A'){ ?>
+					<button type="submit" id="btnListaDesideri" name="btnModifica" style="margin:5px;" class="mdl-button mdl-color--primary mdl-color-text--primary-contrast">Modifica</button>
+				<?php } ?>
+			<?php } else { ?>
+				<div style="height:20px;"></div>
+			<?php } ?>
 		</div>
 	</div>
 </form>

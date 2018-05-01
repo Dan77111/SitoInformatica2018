@@ -5,8 +5,7 @@ $_SESSION['paginaCorrente'] = "Home";
 
 if (isset($_GET['logout'])){
 	session_destroy();
-	session_start();
-	$_SESSION['paginaCorrente'] = "Home";
+	header("Location: index.php");
 }
 include 'partials/db_connection.php';
 include 'partials/functions.php';

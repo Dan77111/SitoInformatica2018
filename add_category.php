@@ -9,18 +9,15 @@ if (!isset($_SESSION['idUtenteCorrente'])){
 if ($_SESSION['tipoUtente'] != "A"){
 	header("Location: index.php");
 }
-$_SESSION['paginaCorrente'] = "Aggiungi Prodotto";
+$_SESSION['paginaCorrente'] = "Aggiungi Categoria";
 $_SESSION['message'] = "";
 
 if (!$error_message) {
 	if (isset($_POST['btnCrea'])) {
 
-		$nome         = text_filter($_POST["prodNome"]);
-		$prezzo       = text_filter($_POST["prodPrezzo"]);
-		$descrizione  = text_filter($_POST["prodDescrizione"]);
-		$categoria    = $_POST['prodCategoria'];
+		$nome         = text_filter($_POST["catNome"]);
 
-		$query = "INSERT INTO tprodotti (Nome, Prezzo, Descrizione, FK_Categoria) VALUES('$nome', '$prezzo', '$descrizione', '$categoria')";
+		$query = "INSERT INTO tcategorie (Nome) VALUES ('$nome')";
 
 		try{
 			$insert = mysqli_query($db_conn, $query);
@@ -31,23 +28,6 @@ if (!$error_message) {
 			$_SESSION['message'] = $e->getMessage();
 		}
 	}
-}
-
-$queryCategorie = "SELECT ID_Categoria, Nome FROM tcategorie";
-
-try{
-
-	$select = mysqli_query($db_conn, $queryCategorie);
-
-	$categorie = array();
-
-	while($categorie[]=mysqli_fetch_array($select));
-
-	array_pop($categorie);
-
-} catch (Exception $e){
-	$info_message = true;
-	$_SESSION['message'] = $e->getMessage();
 }
 
 ?>
@@ -63,7 +43,7 @@ try{
 	</div>
 	<div>
 		<?php
-		include 'partials/add_product_form.php';
+		include 'partials/add_category_form.php';
 
 		if($error_message)
 		include 'partials/modal.php';

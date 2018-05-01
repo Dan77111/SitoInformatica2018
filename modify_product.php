@@ -9,23 +9,30 @@ if (!isset($_SESSION['idUtenteCorrente'])){
 if ($_SESSION['tipoUtente'] != "A"){
 	header("Location: index.php");
 }
-$_SESSION['paginaCorrente'] = "Aggiungi Prodotto";
+
+if (!isset($_SESSION['idProdotto'])){
+	header("Location: index.php");
+}
+
+$idProdotto = $_SESSION['idProdotto'];
+
+$_SESSION['paginaCorrente'] = "Modifica Prodotto";
 $_SESSION['message'] = "";
 
 if (!$error_message) {
-	if (isset($_POST['btnCrea'])) {
+	if (isset($_POST['btnModifica'])) {
 
 		$nome         = text_filter($_POST["prodNome"]);
 		$prezzo       = text_filter($_POST["prodPrezzo"]);
 		$descrizione  = text_filter($_POST["prodDescrizione"]);
 		$categoria    = $_POST['prodCategoria'];
 
-		$query = "INSERT INTO tprodotti (Nome, Prezzo, Descrizione, FK_Categoria) VALUES('$nome', '$prezzo', '$descrizione', '$categoria')";
+		$queryModifica = "UPDATE tprodotti SET Nome = '$nome', Prezzo = '$prezzo', Descrizione = '$descrizione', FK_Categoria = '$categoria' WHERE (ID_Prodotto = '$idProdotto')";
 
 		try{
-			$insert = mysqli_query($db_conn, $query);
+			$update = mysqli_query($db_conn, $queryModifica);
 
-			header("Location: products.php");
+			header("Location: product.php?id=$idProdotto");
 		} catch (Exception $e){
 			$info_message = true;
 			$_SESSION['message'] = $e->getMessage();
@@ -33,9 +40,13 @@ if (!$error_message) {
 	}
 }
 
+$queryProdottoAttuale = "SELECT Nome, Prezzo, Descrizione, FK_Categoria FROM tprodotti WHERE (ID_Prodotto = '$idProdotto') ";
 $queryCategorie = "SELECT ID_Categoria, Nome FROM tcategorie";
 
 try{
+	$select = mysqli_query($db_conn, $queryProdottoAttuale);
+
+	$prodottoAttuale = mysqli_fetch_array($select);
 
 	$select = mysqli_query($db_conn, $queryCategorie);
 
@@ -49,7 +60,6 @@ try{
 	$info_message = true;
 	$_SESSION['message'] = $e->getMessage();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +73,7 @@ try{
 	</div>
 	<div>
 		<?php
-		include 'partials/add_product_form.php';
+		include 'partials/modify_product_form.php';
 
 		if($error_message)
 		include 'partials/modal.php';

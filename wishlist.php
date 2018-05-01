@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['idUtenteCorrente'])){
+	header("Location: index.php");
+}
 $_SESSION['paginaCorrente'] = "Lista dei Desideri";
 
 $idUtente = $_SESSION['idUtenteCorrente'];

@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['idUtenteCorrente'])){
+	header("Location: index.php");
+}
 $_SESSION['paginaCorrente'] = "Carrello";
 $idUtente = $_SESSION['idUtenteCorrente'];
 include 'partials/db_connection.php';

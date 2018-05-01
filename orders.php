@@ -1,12 +1,14 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['idUtenteCorrente'])){
+	header("Location: index.php");
+}
 $_SESSION['paginaCorrente'] = "Ordini";
 $idUtente = $_SESSION['idUtenteCorrente'];
 include 'partials/db_connection.php';
 include 'partials/functions.php';
 
-$query = "SELECT p.Nome, p.Prezzo, o.DataOrdine FROM tprodotti AS p JOIN tordini AS o ON (o.FK_Prodotto = p.ID_Prodotto) WHERE ( o.FK_Utente = '$idUtente') ORDER BY o.DataOrdine";
+$query = "SELECT p.Nome, p.Prezzo, o.DataOrdine FROM tprodotti AS p JOIN tordini AS o ON (o.FK_Prodotto = p.ID_Prodotto) WHERE ( o.FK_Utente = '$idUtente') ORDER BY o.DataOrdine DESC";
 
 try {
 	$select = mysqli_query($db_conn, $query);

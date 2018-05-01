@@ -14,7 +14,7 @@
 			}
 			?> class="mdl-layout__tab">Home</a>
 			<a href="products.php" <?php
-			if (($_SESSION['paginaCorrente'] == "Prodotti") or ($_SESSION['paginaCorrente'] == "Dettagli") or ($_SESSION['paginaCorrente'] == "Aggiungi Prodotto")) {
+			if (($_SESSION['paginaCorrente'] == "Prodotti") or ($_SESSION['paginaCorrente'] == "Dettagli") or ($_SESSION['paginaCorrente'] == "Aggiungi Prodotto") or ($_SESSION['paginaCorrente'] == "Modifica Prodotto") or ($_SESSION['paginaCorrente'] == "Aggiungi Categoria")) {
 				echo 'style="color:white; font-size: 1.5em;"';
 			}
 			?> class="mdl-layout__tab">Prodotti</a>

@@ -1,11 +1,19 @@
 <?php
 session_start();
 
+if (!isset($_GET['id'])) {
+	header("Location: index.php");
+}
+
+if (isset($_SESSION['idUtenteCorrente'])){
+	$idUtente = $_SESSION['idUtenteCorrente'];
+}
+
 $_SESSION['paginaCorrente'] = "Dettagli";
 $_SESSION['idProdotto'] = $_GET['id'];
 
 $id = $_SESSION['idProdotto'];
-$idUtente = $_SESSION['idUtenteCorrente'];
+
 include 'partials/db_connection.php';
 
 if (isset($_POST['btnCarrello'])) {
@@ -37,6 +45,9 @@ if (isset($_POST['btnListaDesideri'])) {
 		$_SESSION['message'] = $e->getMessage();
 	}
 
+}
+if (isset($_POST['btnModifica'])){
+	header("Location: modify_product.php");
 }
 ?>
 
