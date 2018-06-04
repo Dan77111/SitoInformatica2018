@@ -43,22 +43,19 @@ if (isset($_POST['btnAcquisto'])) {
 	header("Location: orders.php");
 }
 
-foreach ($_POST as $key => $value) {
-	if (startsWith($key, 'btnRimuovi')){
-		$intero = $key;
-		$radice = 'btnRimuovi' ;
-		$idCarrello = (int)str_replace($radice, '', $intero);
-		$query = "DELETE FROM tcarrelli WHERE (ID_Carrello = '$idCarrello')";
-		try {
-			$delete = mysqli_query($db_conn, $query);
-		} catch (Exception $e){
-			$info_message = true;
-			$_SESSION['message'] = $e->getMessage();
-		}
-		header("Location: cart.php");
-		break;
+if (isset($_POST['btnRimuovi'])) {
+	$idCarrello = $_POST['btnRimuovi'];
+	$query = "DELETE FROM tcarrelli WHERE (ID_Carrello = '$idCarrello')";
+	try {
+		$delete = mysqli_query($db_conn, $query);
+	} catch (Exception $e){
+		$info_message = true;
+		$_SESSION['message'] = $e->getMessage();
 	}
+	header("Location: cart.php");
+	break;
 }
+
 ?>
 
 <!DOCTYPE html>

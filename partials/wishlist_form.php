@@ -16,8 +16,8 @@
 					<tr>
 						<td class="mdl-data-table__cell--non-numeric"><?php echo $value['Nome'] ?></td>
 						<td class="mdl-data-table__cell--non-numeric"><?php echo $value['Prezzo'] ?>€</td>
-						<td><button style="padding:0px; background-color:inherit;border:0px;" type="submit" id="btnRimuovi<?php echo $value['ID_Lista'] ?>" name="btnRimuovi<?php echo $value['ID_Lista'] ?>" class="material-icons">cancel</button></td>
-						<td><button style="padding:0px; background-color:inherit;border:0px;" type="submit" id="btnAggiungi<?php echo $value['ID_Prodotto'].','.$value['ID_Lista'] ?>" name="btnAggiungi<?php echo $value['ID_Prodotto'].','.$value['ID_Lista'] ?>" class="material-icons">add_circle</button></td>
+						<td><button style="padding:0px; background-color:inherit;border:0px;" type="submit" id="btnRimuovi<?php echo $value['ID_Lista'] ?>" name="btnRimuovi" value="<?php echo $value['ID_Lista'] ?>" class="material-icons">cancel</button></td>
+						<td><button style="padding:0px; background-color:inherit;border:0px;" type="submit" id="btnAggiungi<?php echo $value['ID_Prodotto'].','.$value['ID_Lista'] ?>" name="btnAggiungi" value="<?php echo $value['ID_Prodotto'].','.$value['ID_Lista'] ?>" class="material-icons">add_circle</button></td>
 					</tr>
 				<?php } ?>
 			</tbody>

@@ -53,13 +53,14 @@ if (!$error_message) {
 	<div>
 		<?php
 		include 'partials/registration_form.html';
-
-		if($error_message)
-		include 'partials/modal.php';
-
-		if($info_message)
-		include 'partials/modal.php';
 		?>
 	</div>
+	<?php
+	if($error_message)
+	include 'partials/modal.php';
+
+	if($info_message)
+	include 'partials/modal.php';
+	?>
 </body>
 </html>

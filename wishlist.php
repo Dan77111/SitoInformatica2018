@@ -43,44 +43,38 @@ if (isset($_POST['btnAggiungiAlCarrello'])) {
 	header("Location: cart.php");
 }
 
-foreach ($_POST as $key => $value) {
-	if (startsWith($key, 'btnRimuovi')){
-		$intero = $key;
-		$radice = 'btnRimuovi' ;
-		$idLista = (int)str_replace($radice, '', $intero);
-		$query = "DELETE FROM tlistadesideri WHERE (ID_Lista = '$idLista')";
-		try {
-			$delete = mysqli_query($db_conn, $query);
-		} catch (Exception $e){
-			$info_message = true;
-			$_SESSION['message'] = $e->getMessage();
-		}
-		header("Location: wishlist.php");
-		break;
+if (isset($_POST['btnRimuovi'])) {
+	$idLista = $_POST['btnRimuovi'];
+	$query = "DELETE FROM tlistadesideri WHERE (ID_Lista = '$idLista')";
+	try {
+		$delete = mysqli_query($db_conn, $query);
+	} catch (Exception $e){
+		$info_message = true;
+		$_SESSION['message'] = $e->getMessage();
 	}
-	if (startsWith($key, 'btnAggiungi')){
-		$intero = $key;
-		$radice = 'btnAggiungi' ;
-		$temp = explode(',', str_replace($radice, '', $intero));
-		$idProdotto = $temp[0];
-		$idLista = $temp[1];
-		$query = "INSERT INTO tcarrelli (FK_Utente, FK_Prodotto) VALUES ('$idUtente', '$idProdotto')";
-		try {
-			$insert = mysqli_query($db_conn, $query);
-		} catch (Exception $e){
-			$info_message = true;
-			$_SESSION['message'] = $e->getMessage();
-		}
-		$query = "DELETE FROM tlistadesideri WHERE (ID_Lista = '$idLista')";
-		try {
-			$delete = mysqli_query($db_conn, $query);
-		} catch (Exception $e){
-			$info_message = true;
-			$_SESSION['message'] = $e->getMessage();
-		}
-		header("Location: wishlist.php");
-		break;
+	header("Location: wishlist.php");
+	break;
+}
+if (isset($_POST['btnAggiungi'])) {
+	$temp = explode(',', $_POST['btnAggiungi']);
+	$idProdotto = $temp[0];
+	$idLista = $temp[1];
+	$query = "INSERT INTO tcarrelli (FK_Utente, FK_Prodotto) VALUES ('$idUtente', '$idProdotto')";
+	try {
+		$insert = mysqli_query($db_conn, $query);
+	} catch (Exception $e){
+		$info_message = true;
+		$_SESSION['message'] = $e->getMessage();
 	}
+	$query = "DELETE FROM tlistadesideri WHERE (ID_Lista = '$idLista')";
+	try {
+		$delete = mysqli_query($db_conn, $query);
+	} catch (Exception $e){
+		$info_message = true;
+		$_SESSION['message'] = $e->getMessage();
+	}
+	header("Location: wishlist.php");
+	break;
 }
 ?>
 
